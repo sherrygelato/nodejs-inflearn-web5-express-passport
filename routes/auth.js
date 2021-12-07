@@ -63,7 +63,16 @@ router.post('/login_process', function (request, response) {
   
 // destroy : 세션이 삭제됨
 router.get('/logout', function (request, response) {
-  request.session.destroy(function (err) {
+
+  // passport logout
+  request.logout();
+
+  // session delete
+  // request.session.destroy(function (err) {
+  //   response.redirect('/');
+  // });
+  
+  request.session.save(function () {
     response.redirect('/');
   });
 })
