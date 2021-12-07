@@ -26,30 +26,30 @@ app.use(flash())
 
 var passport = require('./lib/passport')(app)
 
-// 1회용 메세지다 
-app.get('/flash', function(req, res){
-  // Set a flash message by passing the key, followed by the value, to req.flash().
-  req.flash('msg', 'Flash is back!!')
-  res.send('flash')
-});
+// // 1회용 메세지다 
+// app.get('/flash', function(req, res){
+//   // Set a flash message by passing the key, followed by the value, to req.flash().
+//   req.flash('msg', 'Flash is back!!')
+//   res.send('flash')
+// });
 
-app.get('/flash-display', function(req, res){
-  // Get an array of flash messages by passing the key to req.flash()
-  var fmsg = req.flash()
-  console.log(fmsg)
-  res.send(fmsg)
-});
+// app.get('/flash-display', function(req, res){
+//   // Get an array of flash messages by passing the key to req.flash()
+//   var fmsg = req.flash()
+//   console.log(fmsg)
+//   res.send(fmsg)
+// });
 
-// /login으로 로그인 정보를 보냈을 때
-app.post('/auth/login_process',
-// callback 함수가 passport 
-passport.authenticate('local', {
-    // local: id, pwd 로그인 방식
-    successRedirect: '/',
-    failureRedirect: '/auth/login',
-    failureMessage: true,
-    successFlash: true
-}));
+// // /login으로 로그인 정보를 보냈을 때
+// app.post('/auth/login_process',
+// // callback 함수가 passport 
+// passport.authenticate('local', {
+//     // local: id, pwd 로그인 방식
+//     successRedirect: '/',
+//     failureRedirect: '/auth/login',
+//     failureMessage: true,
+//     successFlash: true
+// }));
 
 app.get('*', function(request, response, next){
   fs.readdir('./data', function(error, filelist){

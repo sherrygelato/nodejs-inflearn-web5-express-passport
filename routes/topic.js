@@ -57,16 +57,16 @@ router.get('/update/:pageId', function (request, response) {
     var list = template.list(request.list);
     var html = template.HTML(title, list,
       `
-      <form action="/topic/update_process" method="post">
-        <input type="hidden" name="id" value="${title}">
-        <p><input type="text" name="title" placeholder="title" value="${title}"></p>
-        <p>
-          <textarea name="description" placeholder="description">${description}</textarea>
-        </p>
-        <p>
-          <input type="submit">
-        </p>
-      </form>
+        <form action="/topic/update_process" method="post">
+          <input type="hidden" name="id" value="${title}">
+          <p><input type="text" name="title" placeholder="title" value="${title}"></p>
+          <p>
+            <textarea name="description" placeholder="description">${description}</textarea>
+          </p>
+          <p>
+            <input type="submit">
+          </p>
+        </form>
       `,
       `<a href="/topic/create">create</a> <a href="/topic/update/${title}">update</a>`,
       auth.statusUI(request, response)
@@ -128,7 +128,7 @@ router.get('/:pageId', function(request, response, next) {
             <input type="hidden" name="id" value="${sanitizedTitle}">
             <input type="submit" value="delete">
           </form>`,
-          auth.statusUI(request, response)
+        auth.statusUI(request, response)
       );
       response.send(html);
     }
