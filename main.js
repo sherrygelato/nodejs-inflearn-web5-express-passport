@@ -22,9 +22,19 @@ app.use(session({
 
 // passport는 session을 참고해서 사용하기 때문에
 // 꼭꼭!! 세션 다음에 코드 작성
-var passport = require('passport')
-  , LocalStrategy = require('passport-local')
-  .Strategy;
+var passport = require('passport'),
+  LocalStrategy = require('passport-local').Strategy;
+
+// /login으로 로그인 정보를 보냈을 때
+app.post('/auth/login_process',
+  // callback 함수가 passport 
+  passport.authenticate('local', {
+    // local: id, pwd 로그인 방식
+    successRedirect: '/',
+    failureRedirect: '/auth/login'
+  }));
+  
+
 
 app.get('*', function(request, response, next){
   fs.readdir('./data', function(error, filelist){
