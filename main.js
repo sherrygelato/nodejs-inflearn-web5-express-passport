@@ -20,6 +20,12 @@ app.use(session({
   store: new FileStore()
 }))
 
+// passport는 session을 참고해서 사용하기 때문에
+// 꼭꼭!! 세션 다음에 코드 작성
+var passport = require('passport')
+  , LocalStrategy = require('passport-local')
+  .Strategy;
+
 app.get('*', function(request, response, next){
   fs.readdir('./data', function(error, filelist){
     request.list = filelist;
