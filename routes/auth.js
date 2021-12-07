@@ -15,19 +15,26 @@ var template = require('../lib/template.js');
 //   nickname: 'sherrygelato'
 // }
 
-router.get('/login', function(request, response){
-    var title = 'WEB - login';
-    var list = template.list(request.list);
-    var html = template.HTML(title, list, `
-      <form action="/auth/login_process" method="post">
-        <p><input type="text" name="email" placeholder="email"></p>
-        <p><input type="password" name="pwd" placeholder="password"></p>
-        <p>
-          <input type="submit" value="login">
-        </p>
-      </form>
+router.get('/login', function (request, response) {
+  var fmsg = request.flash()
+  var feedback = ''
+  if (fmsg.error) {
+    feedback = fmsg.error[0]
+  }
+  console.log(fmsg)
+  var title = 'WEB - login';
+  var list = template.list(request.list);
+  var html = template.HTML(title, list, `
+    <div style="color:red;">${feedback}</div>
+    <form action="/auth/login_process" method="post">
+      <p><input type="text" name="email" placeholder="email"></p>
+      <p><input type="password" name="pwd" placeholder="password"></p>
+      <p>
+        <input type="submit" value="login">
+      </p>
+    </form>
     `, '');
-    response.send(html);
+  response.send(html);
 });
 
 // 해당 사항을 passport 형식으로 바꿔야 한다.
@@ -71,7 +78,7 @@ router.get('/logout', function (request, response) {
   // request.session.destroy(function (err) {
   //   response.redirect('/');
   // });
-  
+
   request.session.save(function () {
     response.redirect('/');
   });

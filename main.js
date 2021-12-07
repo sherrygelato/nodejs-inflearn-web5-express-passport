@@ -22,6 +22,7 @@ app.use(session({
 }))
 app.use(flash())
 
+// 1회용 메세지다 
 app.get('/flash', function(req, res){
   // Set a flash message by passing the key, followed by the value, to req.flash().
   req.flash('msg', 'Flash is back!!')
@@ -93,29 +94,7 @@ passport.use(new LocalStrategy(
         message: 'Incorrect username.'
       });
     }
-
-  /*
-  // 상위 done이라는 함수가 어떻게 되는가에 따른 로그인 처리
-  User.findOne({ username: username }, function (err, user) {
-  
-    // 에러 발생 시 에러를 첫번째 인자로 주고 passport가 알아서 처리
-    if (err) { return done(err); }
-
-    // user가 없다면, 왜 실패 했는지 
-    if (!user) {
-      return done(null, false, { message: 'Incorrect username.' });
-    }
-
-    // 사용자가 있으나 password 틀림
-    if (!user.validPassword(password)) {
-      return done(null, false, { message: 'Incorrect password.' });
-    }
-
-    // 사용자에 대한 정보 
-    return done(null, user);
-  });
-  */
-}
+  }
 ));
 
 // /login으로 로그인 정보를 보냈을 때
@@ -124,10 +103,10 @@ app.post('/auth/login_process',
   passport.authenticate('local', {
     // local: id, pwd 로그인 방식
     successRedirect: '/',
-    failureRedirect: '/auth/login'
+    failureRedirect: '/auth/login',
+    failureMessage: true,
+    successFlash: true
   }));
-  
-
 
 app.get('*', function(request, response, next){
   fs.readdir('./data', function(error, filelist){
