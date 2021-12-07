@@ -5,15 +5,15 @@ var fs = require('fs');
 var sanitizeHtml = require('sanitize-html');
 var template = require('../lib/template.js');
 
-// 이러한 정보는 밖으로 꺼내야 한다. 소스 코드 안에 ㄴㄴ
-// 비밀번호를 평문이 아닌 Hash 등 비밀번호 암호화 해야 한다.
-// 정보 관리자들도 알지 못해야 한다.
-// 여러 사람의 인증 시스템도 잘 생각해야 한다.
-var authData = {
-  email: 'test@example.com',
-  password: '1234321!',
-  nickname: 'sherrygelato'
-}
+// // 이러한 정보는 밖으로 꺼내야 한다. 소스 코드 안에 ㄴㄴ
+// // 비밀번호를 평문이 아닌 Hash 등 비밀번호 암호화 해야 한다.
+// // 정보 관리자들도 알지 못해야 한다.
+// // 여러 사람의 인증 시스템도 잘 생각해야 한다.
+// var authData = {
+//   email: 'test@example.com',
+//   password: '1234321!',
+//   nickname: 'sherrygelato'
+// }
 
 router.get('/login', function(request, response){
     var title = 'WEB - login';
